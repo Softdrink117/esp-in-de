@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+	ESP 2866-based JAMMA Input Viewer
+	Softdrink 117
+	GITHUB LINK HERE WOOOOOO
+-->
+<html>
+	<head>
+		<title>ESP8266 JAMMA Input Viewer</title>
+		<meta charset='UTF-8'>
+		<meta name='author' content='Softdrink 117'>
+		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<h1>ESP Inp. De. V0.2</h1>
+		<span>Sup Bro</span>
+		<br>
+		<p>UDLRABCD</p>
+		<p id="binaryData">--------</p>
+	</body>
+</html>
+
+<script type="text/javascript">
+	var Socket;
+	function Init()
+	{
+	    Socket = new WebSocket('ws://' + window.location.hostname + ':81/');
+	    Socket.onmessage = function(event) { OnMessage(event); };
+	    Socket.binaryType = 'arraybuffer';
+	}
+
+	function OnMessage(evt)
+	{
+	    // Parse input data in binary format
+	    // Abbreviations:
+	    // U = Up | D = Down | L = Left | R = Right
+	    // A = B1 | B = B2 | C = B3 | D = B4 | E = B5 | F = B6 | G = B7 | H = B8
+	    // S = Start
+	    // Bitpacked format is:
+	    // UDLRABCD EFGHS000 UDLRABCD EFGHS000
+	    // P1-JAMMA_Kick+etc P2-JAMMA_Kick+etc
+	    var dv = new DataView(evt.data);
+	    var p1data = dv.getUint8(0);
+
+	    document.getElementById('binaryData').innerHTML = ToBinaryString(p1data);
+	}
+
+	function ToBinaryString(input)
+	{
+		return Number(input).toString(2);
+	}
+
+	window.onload = function(e)
+	{
+	    Init();
+	}
+</script>
