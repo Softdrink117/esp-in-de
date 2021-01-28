@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <!--
+	ESP In. De.
 	ESP 2866-based JAMMA Input Viewer
 	Softdrink 117
-	GITHUB LINK HERE WOOOOOO
+	https://github.com/Softdrink117/esp-in-de
 -->
 <html>
 	<head>
-		<title>ESP8266 JAMMA Input Viewer</title>
+		<title>ESP In. De.</title>
 		<meta charset='UTF-8'>
 		<meta name='author' content='Softdrink 117'>
 		<meta name='viewport' content='width=device-width, initial-scale=1.0'>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
-		<h1>ESP Inp. De. V0.2</h1>
-		<span>Sup Bro</span>
-		<br>
-		<p>UDLRABCD</p>
-		<p id="binaryData">--------</p>
+		<h1>ESP In. De. V0.2</h1>
+
+		<p>Bitpacked Input Data</p>
+		<p>-P1-------------- -P2--------------</p>
+		<p>UDLRSABC DEFGH000 UDLRSABC DEFGH000</p>
+		<p id="binaryData">-------- -------- -------- --------</p>
+
+		<div class="panelWrapper">
+			<div class="controlPanel p1">
+				<div class="sega layout">
+					<div class="lever"> </div>
+					<div class="button b1"></div>
+					<div class="button b2"></div>
+					<div class="button b3"></div>
+					<div class="button b4"></div>
+					<div class="button b5"></div>
+					<div class="button b6"></div>
+					<div class="button b7"></div>
+					<div class="button b8"></div>
+					<div class="button bStart"></div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
 
@@ -38,17 +57,26 @@
 	    // A = B1 | B = B2 | C = B3 | D = B4 | E = B5 | F = B6 | G = B7 | H = B8
 	    // S = Start
 	    // Bitpacked format is:
-	    // UDLRABCD EFGHS000 UDLRABCD EFGHS000
+	    // UDLRSABC DEFGH000 UDLRSABC DEFGH000
 	    // P1-JAMMA_Kick+etc P2-JAMMA_Kick+etc
 	    var dv = new DataView(evt.data);
-	    var p1data = dv.getUint8(0);
+	    var p1pt1 = dv.getUint8(0);
+			var p1pt2 = dv.getUint8(1);
+			var p2pt1 = dv.getUint8(2);
+			var p2pt2 = dv.getUint8(3);
 
-	    document.getElementById('binaryData').innerHTML = ToBinaryString(p1data);
+	    document.getElementById('binaryData').innerHTML = ToBinaryString(p1pt1) + " " + ToBinaryString(p1pt2) + " " + ToBinaryString(p2pt1) + " " + ToBinaryString(p2pt2);
 	}
 
 	function ToBinaryString(input)
 	{
-		return Number(input).toString(2);
+		var out = "";
+		for(var i = 7; i >= 0; i--)
+		{
+			if(input & (1 << i)) out += "1";
+			else out += "0";
+		}
+		return out;
 	}
 
 	window.onload = function(e)

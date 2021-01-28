@@ -1,7 +1,8 @@
 /***
+	ESP In. De.
 	ESP 2866-based JAMMA Input Viewer
 	Softdrink 117
-	GITHUB LINK HERE WOOOOOO
+	https://github.com/Softdrink117/esp-in-de
 ***/
 
 html {
@@ -13,4 +14,90 @@ html {
 body {
 	background-color: black;
 	color: white;
+}
+
+.controlPanel {
+  background: white;
+	width: 400px;
+	height: 200px;
+}
+
+.layout {
+	position: relative;
+	left: 50px;
+	top: 50px;
+	border: 1px solid black;
+}
+
+.sega .lever {
+	left: 36px;
+	top: 38.5px;
+}
+.sega .button.b1{
+	left: 102px;
+	top: 14px;
+}
+.sega .button.b2{
+	left: 135px;
+	top: 0px;
+}
+.sega .button.b3{
+	left: 170.5px;
+	top: 6px;
+}
+.sega .button.b4{
+	left: 95px;
+	top: 52.5px;
+}
+.sega .button.b5{
+	left: 128px;
+	top: 38.5px;
+}
+.sega .button.b6{
+	left: 164px;
+	top: 44.5px;
+}
+.sega .button.b7{
+	left: 204.5px;
+	top: 21px;
+}
+.sega .button.b8{
+	left: 198px;
+	top: 59.5px;
+}
+
+.panelWrapper {
+	background-color: #404040;
+	border: 1px solid gray;
+	transform: scale(1.0);
+	transform-origin: left top;
+}
+
+.lever {
+	position: absolute;
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	background-image: radial-gradient(circle, white 25%, gray 55%, black 70%);
+	border-radius: 50%;
+	box-shadow: 0 0 25px black;
+}
+
+.button {
+	position: absolute;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	/* background-color: Lime; */
+	background-image: radial-gradient(circle, white 55%, gray 60%, black 70%);
+	border-radius: 50%;
+	border: 2px solid white;
+	box-shadow: 0 0 3px black;
+}
+
+.button::after {
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: white;
 }
