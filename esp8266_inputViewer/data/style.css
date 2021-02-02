@@ -20,50 +20,15 @@ body {
   background: white;
 	width: 400px;
 	height: 200px;
+		float: left;
 }
 
 .layout {
 	position: relative;
 	left: 50px;
 	top: 50px;
+	/* margin: 50px; */
 	border: 1px solid black;
-}
-
-.sega .lever {
-	left: 36px;
-	top: 38.5px;
-}
-.sega .button.b1{
-	left: 102px;
-	top: 14px;
-}
-.sega .button.b2{
-	left: 135px;
-	top: 0px;
-}
-.sega .button.b3{
-	left: 170.5px;
-	top: 6px;
-}
-.sega .button.b4{
-	left: 95px;
-	top: 52.5px;
-}
-.sega .button.b5{
-	left: 128px;
-	top: 38.5px;
-}
-.sega .button.b6{
-	left: 164px;
-	top: 44.5px;
-}
-.sega .button.b7{
-	left: 204.5px;
-	top: 21px;
-}
-.sega .button.b8{
-	left: 198px;
-	top: 59.5px;
 }
 
 .panelWrapper {
@@ -100,4 +65,42 @@ body {
 	height: 10px;
 	border-radius: 50%;
 	background-color: white;
+}
+
+/* SEGA Layouts ============================================ */
+.p1 .sega .lever {
+	left: 36px;
+	top: 38.5px;
+}
+.p1 .sega .button.b1{
+	left: 102px;
+	top: 14px;
+}
+.p1 .sega .button.b2{
+	left: 135px;
+	top: 0px;
+}
+.p1 .sega .button.b3{
+	left: 170.5px;
+	top: 6px;
+}
+.p1 .sega .button.b4{
+	left: 95px;
+	top: 52.5px;
+}
+.p1 .sega .button.b5{
+	left: 128px;
+	top: 38.5px;
+}
+.p1 .sega .button.b6{
+	left: 164px;
+	top: 44.5px;
+}
+.p1 .sega .button.b7{
+	left: 204.5px;
+	top: 21px;
+}
+.p1 .sega .button.b8{
+	left: 198px;
+	top: 59.5px;
 }

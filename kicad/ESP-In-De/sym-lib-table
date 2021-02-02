@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name Jamma)(type Legacy)(uri ${KIPRJMOD}/lib/created_by_others/buffis/Jamma.lib)(options "")(descr ""))
+)
