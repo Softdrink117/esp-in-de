@@ -26,6 +26,10 @@ const int webSocketPort = 81;
 // LEFT  = GPIO 4  = pin D2
 // RIGHT = GPIO 12 = pin D6
 
+// This will be updated soon to use PISO registers as input
+// As a basic proof of concept though this should get the
+// point across
+
 #define PIN_UP 5
 #define PIN_DOWN 13
 #define PIN_LEFT 4
@@ -96,6 +100,8 @@ void StartWebServer()
   Serial.println(String("Starting web server at ") + WiFi.localIP().toString() + String(":") + String(port));
   Serial.println();
 
+  // Adapted verbatim from // Adapted from https://tttapa.github.io/ESP8266/Chap11%20-%20SPIFFS.html
+  // Please see /attribution/ESP8266_TTTAPA_AttributionAndLicense.txt for more details
   server.onNotFound([]() {                              // If the client requests any URI
     if (!handleFileRead(server.uri()))                  // send it if it exists
       server.send(404, "text/plain", "404: Not Found"); // otherwise, respond with a 404 (Not Found) error
@@ -187,8 +193,8 @@ void WebSocketEvent(byte num, WStype_t type, uint8_t* payload, size_t length)
 
 // FILE HANDLING ===========================================================================================
 
-// Adapted from https://tttapa.github.io/ESP8266/Chap11%20-%20SPIFFS.html
-
+// Adapted verbatim from https://tttapa.github.io/ESP8266/Chap11%20-%20SPIFFS.html
+// Please see /attribution/ESP8266_TTTAPA_AttributionAndLicense.txt for more details
 void ListFiles()
 {
   Dir root = SPIFFS.openDir("/");
@@ -217,6 +223,8 @@ String getContentType(String filename)
   return "text/plain";
 }
 
+// Adapted verbatim from https://tttapa.github.io/ESP8266/Chap11%20-%20SPIFFS.html
+// Please see /attribution/ESP8266_TTTAPA_AttributionAndLicense.txt for more details
 // send the right file to the client (if it exists)
 bool handleFileRead(String path)
 {
