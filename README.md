@@ -9,6 +9,8 @@
 
 This project describes a multi-function input intermediary for arcade cabinets that acts as a button remapper, autofire circuit, and input viewer for live streams.
 
+### Currently Defined Features
+
 - Support for 2L8B (JAMMA spec)
   - Optional: Support for 2L12B or 2L16B
     - Normally I wouldn't be a big fan of 16B support (too many darn buttons) but for the specific case of autofire and remapping I think it actually has some merit
@@ -26,7 +28,7 @@ This project describes a multi-function input intermediary for arcade cabinets t
   - Optional: onboard graphical hardware interface as well
      - Current theory: I2C OLED with persistence + some tac switches (maybe 3?) to navigate options. Text-based interface should be sufficient
 
-#### Feature Requests
+### Feature Requests
 
 - Profile support
   - Save a configuration to a profile and reload from the interface
@@ -36,10 +38,11 @@ This project describes a multi-function input intermediary for arcade cabinets t
 
 - Macros (multiple buttons triggered in sequence with one press)
   - Another example from Kiwi:
+
   ```
   Macro to reliably perform the Mushihimesama glitch
   Frame | 0 1 2
-     - - -| - - -
+  - - - | - - -
   Btn A | 0 1 1
   Btn C | 1 1 0
   ```
