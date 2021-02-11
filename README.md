@@ -98,7 +98,7 @@ If the onboard hardware interface is included, that adds another couple buttons 
 
 ## Data Format
 
-Inputs are ingested through shift registers, so it comes in as binary. Registers and buffers are usually available in 8 or 16-bit widths, which also aligns with data types neatly.
+Inputs are ingested through shift registers, so it comes in as binary. Registers and buffers are usually available in 8 or 16-bit widths, which also aligns with some input formats neatly.
 
 I propose the following bit layouts, depending on our decision for the supported input options. Right now the demonstration is already using the 32-bit format specified below, but that is easily changed:
 
