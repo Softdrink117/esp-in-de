@@ -61,7 +61,7 @@ This project describes a multi-function input intermediary for arcade cabinets t
       - How does sync sense work?
         - Is there a separate 'sync sense PCB' that can be physically located separately from the main input PCB?
           - This would add a lot of flexibility to the supported cabinet types, but also adds complexity to design and fabrication
-      - JAMMA is easy but limits scope to JAMMA games or JAMMA/JVS IO
+    - JAMMA is easier but limits scope to JAMMA games or JAMMA/JVS IO
 - Supported features:
   - Onboard configuration adds complexity to the PCB design and programming, and web UI is sufficient for all main functions. But web UI is not always ideal. Plus, ability to set/view IP from the hardware would be great for multi-cabinet setups.
   - Requested features above - of particular note is the macro functionality, which is a value add but also complicates interface design.
