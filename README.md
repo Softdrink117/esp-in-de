@@ -1,6 +1,6 @@
 # ESP In. De.
  **ESP**2866 **In**put **De**vice  
-エスピンデー  
+エスピンデ  
 *(ehsp-in-day)*
 
 -----
