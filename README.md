@@ -38,9 +38,10 @@ This project describes a multi-function input intermediary for arcade cabinets t
   - Another example from Kiwi:
   ```
   Macro to reliably perform the Mushihimesama glitch
-  Frame 0 1 2
-  Btn A 0 1 1
-  Btn C 1 1 0
+  Frame | 0 1 2
+     - - -| - - -
+  Btn A | 0 1 1
+  Btn C | 1 1 0
   ```
 - Delays (before an interval - mostly meant as an 'if we can't do a macro, this can be used to do it manually' thing)
   - IE: When button pressed, wait for X frames before starting the interval, then repeat it as normal
