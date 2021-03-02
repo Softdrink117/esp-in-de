@@ -14,9 +14,11 @@ This project describes a multi-function input intermediary for arcade cabinets t
 - Support for 2L8B (JAMMA spec)
   - Optional: Support for 2L12B or 2L16B
     - Normally I wouldn't be a big fan of 16B support (too many darn buttons) but for the specific case of autofire and remapping I think it actually has some merit
-  - Optional: Support for Start buttons
+  - Start buttons are supported
 - Input viewer: animated web visualization that can be used as an OBS Browser Source for live streams
 - Input remapper: arbitrary reassignment of buttons to user preference
+- Sideswap: allow a 1LxB control panel to be used as Player 1 or Player 2
+  - Optional: Trigger sideswap from a button combination when Start is pressed
 - Autofire:
   - Interval-based autofire
      - Input for X ticks, wait for Y ticks, repeat
@@ -76,7 +78,7 @@ Power and other 'infrastructure' omitted for clarity
 Buttons/Levers
 |
 |
-Pullup resistor array
+Pullup resistor array (10kOhm)
 |
 PISO register(s)
 |
@@ -88,7 +90,7 @@ PISO register(s)
 |                                                             |
 SIPO register(s)                                              |
 |                                                             |
-Open-collector buffer                                         |
+Open-collector/drain buffer/inverter                          |
 |                                                             |
 Cabinet Input Harness(es)                           Cabinet Video Harness
 ```
@@ -96,24 +98,37 @@ Cabinet Input Harness(es)                           Cabinet Video Harness
 
 If the onboard hardware interface is included, that adds another couple buttons (which can probably be wired through unused bits of the input register chain) and an I2C display
 
+### BOM (Still WIP, not yet prototyped in hardware!!!)
+
+#### Input
+
+| Part | Quantity | Through-Hole | SMD |
+| ---: | :------: | :----------- | :--- |
+| Input Pullup Resistor Array | 4 | [4609X-101-103LF](https://www.digikey.com/en/products/detail/4609X-101-103LF/4609X-101-103LF-ND/2634616) |   |
+| PISO Shift Register | 4 |
+| SIPO Shift Register | 4 | [SN74AHC594N‎](https://www.digikey.com/en/products/detail/SN74AHC594N/296-33681-5-ND/1566900)
+| Open-Drain Inverter | 5 | [CD74AC05E](https://www.digikey.com/en/products/detail/texas-instruments/CD74AC05E/375662) | [SN74LVC06AD](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC06AD/277342)
+
+#### Sync
+
 ## Data Format
 
-Inputs are ingested through shift registers, so it comes in as binary. Registers and buffers are usually available in 8 or 16-bit widths, which also aligns with some input formats neatly.
+Inputs are ingested through shift registers, so it comes in as binary. Registers are usually available in 8 or 16-bit widths, which also aligns with some input formats neatly.
 
 I propose the following bit layouts, depending on our decision for the supported input options. Right now the demonstration is already using the 32-bit format specified below, but that is easily changed:
 
 ```
+2L6B + Start -> 16 bits
+-P1----- -P2-----
+UDLRSABC UDLRSABC
+
 2L8B -> 16 bits
 -P1----- -P2-----
 UDLRABCD UDLRABCD
 
-2L12B -> 20 bits (round up to 24, can add Starts, 2 extra for onboard hw)
+2L12B + Start -> 20 bits (round up to 24, can add Starts, 2 extra for onboard hw)
 -P1----- -Shared- -P2-----
 UDLRSABC DEF0DEF0 UDLRSABC
-
-2L16B -> 24 bits
--P1----- -Shared- -P2-----
-UDLRABCD EFGHEFGH UDLRABCD
 
 2L16B + Start -> 26 bits (round up to 32, 6 extra for onboard hw)
 -P1----- -------- -P2----- --------

@@ -209,6 +209,8 @@ void ListFiles()
   }
 }
 
+// Adapted verbatim from https://tttapa.github.io/ESP8266/Chap11%20-%20SPIFFS.html
+// Please see /attribution/ESP8266_TTTAPA_AttributionAndLicense.txt for more details
 // convert the file extension to the MIME type
 String getContentType(String filename)
 {

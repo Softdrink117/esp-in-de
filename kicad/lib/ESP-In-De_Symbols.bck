@@ -1,0 +1,21 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 74AHC594
+D 8-bit serial in/out Shift Register
+K HCMOS SR
+F https://www.ti.com/lit/ds/symlink/sn74ahc594.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1614595140527
+$ENDCMP
+#
+$CMP 74HC594
+D 8-bit serial in/out Shift Register
+K HCMOS SR
+F https://www.ti.com/lit/ds/symlink/sn74hc594.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1614631650146
+$ENDCMP
+#
+$CMP Conn_20_Pin_Joystick
+D Generic connector, double row, 02x10, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F https://focusattack.com/20-pin-joystick-button-harness/
+$ENDCMP
+#
+#End Doc Library

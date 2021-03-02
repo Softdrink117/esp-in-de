@@ -1,0 +1,32 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 74AC05E
+D Hex inverter, open-collector outputs
+K open-collector inverter hex
+F https://www.ti.com/lit/ds/symlink/cd74ac05.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1614651867807
+$ENDCMP
+#
+$CMP 74AHC594
+D 8-bit serial in/out Shift Register
+K HCMOS SR
+F https://www.ti.com/lit/ds/symlink/sn74ahc594.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1614595140527
+$ENDCMP
+#
+$CMP 74HC594
+D 8-bit serial in/out Shift Register
+K HCMOS SR
+F https://www.ti.com/lit/ds/symlink/sn74hc594.pdf?HQS=dis-dk-null-digikeymode-dsf-pf-null-wwe&ts=1614631650146
+$ENDCMP
+#
+$CMP Conn_20_Pin_Joystick
+D 20-pin connector in 2x10 .100 format, pinout matching the common 'Brook'/'Akishop' format adopted for fightstick accessories
+K connector fightstick joystick
+F https://focusattack.com/20-pin-joystick-button-harness/
+$ENDCMP
+#
+$CMP SSD1306_OLED_Display
+D I2C OLED display module, SSD1306 driver
+K SSD1306 I2C display OLED
+$ENDCMP
+#
+#End Doc Library
