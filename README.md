@@ -72,11 +72,11 @@ Pullup resistor array (10kOhm)
 |
 PISO register(s)
 |
-[GPIO/serial input* ]
+[SPI Input          ]
 [                   ]
 [MCU            GPIO]----- Optional Sync Sense ----- [ Sync processing (splitting etc.)]
 [                   ]                                         |
-[GPIO/serial output*]                                         |
+[SPI Output         ]                                         |
 |                                                             |
 SIPO register(s)                                              |
 |                                                             |
@@ -84,7 +84,6 @@ Open-collector/drain buffer/inverter                          |
 |                                                             |
 Cabinet Input Harness(es)                           Cabinet Video Harness
 ```
-*Serials could be hardware, which would be ideal, but given the input polling/output frequency it's honestly probably fine to just bitbang on regular GPIO if needed
 
 If the onboard hardware interface is included, that adds another couple buttons (which can probably be wired through unused bits of the input register chain) and an I2C display
 
