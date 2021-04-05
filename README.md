@@ -11,10 +11,7 @@ This project describes a multi-function input intermediary for arcade cabinets t
 
 ### Currently Defined Features
 
-- Support for 2L8B (JAMMA spec)
-  - Optional: Support for 2L12B or 2L16B
-    - Normally I wouldn't be a big fan of 16B support (too many darn buttons) but for the specific case of autofire and remapping I think it actually has some merit
-  - Start buttons are supported
+- Support for 2L16B + Start
 - Input viewer: animated web visualization that can be used as an OBS Browser Source for live streams
 - Input remapper: arbitrary reassignment of buttons to user preference
 - Sideswap: allow a 1LxB control panel to be used as Player 1 or Player 2
@@ -28,7 +25,7 @@ This project describes a multi-function input intermediary for arcade cabinets t
 - Configuration interface:
   - Available over the same web interface as the input display
   - Optional: onboard graphical hardware interface as well
-     - Current theory: I2C OLED with persistence + some tac switches (maybe 3?) to navigate options. Text-based interface should be sufficient
+     - Current theory: I2C OLED with persistence + some tac switches (maybe 3?) to navigate options.
 
 ### Feature Requests
 
@@ -53,17 +50,10 @@ This project describes a multi-function input intermediary for arcade cabinets t
 
 ### Decision Points
 
-- What input format(s) are supported?
 - Physical design:
-  - Is it a JAMMA interstitial, or something that integrates more directly with the cabinet?
-    - Cabinet is preferable, but adds complexity:
-      - The input side probably goes between the CP and the cabinet harness.
-        - This is super convenient on SEGA cabs since they offer power and ground to the CP connectors. Do other cabs do this?
-        - How should this be connected? Does it make sense to use an existing connector format (AMP-UP for example), or would it be better to have headers on the PCB and small breakout harnesses to adapt to various cabinets?
-      - How does sync sense work?
-        - Is there a separate 'sync sense PCB' that can be physically located separately from the main input PCB?
-          - This would add a lot of flexibility to the supported cabinet types, but also adds complexity to design and fabrication
-    - JAMMA is easier but limits scope to JAMMA games or JAMMA/JVS IO
+  - Cabinet interstitial connectors / 'plug and play'
+  - Sync board
+  - Interconnect between sync board and main board
 - Supported features:
   - Onboard configuration adds complexity to the PCB design and programming, and web UI is sufficient for all main functions. But web UI is not always ideal. Plus, ability to set/view IP from the hardware would be great for multi-cabinet setups.
   - Requested features above - of particular note is the macro functionality, which is a value add but also complicates interface design.
@@ -105,7 +95,7 @@ If the onboard hardware interface is included, that adds another couple buttons 
 | Part | Quantity | Through-Hole | SMD |
 | ---: | :------: | :----------- | :--- |
 | Input Pullup Resistor Array | 4 | [4609X-101-103LF](https://www.digikey.com/en/products/detail/4609X-101-103LF/4609X-101-103LF-ND/2634616) |   |
-| PISO Shift Register | 4 |
+| PISO Shift Register | 4 | 74HC165
 | SIPO Shift Register | 4 | [SN74AHC594N‎](https://www.digikey.com/en/products/detail/SN74AHC594N/296-33681-5-ND/1566900)
 | Open-Drain Inverter | 5 | [CD74AC05E](https://www.digikey.com/en/products/detail/texas-instruments/CD74AC05E/375662) | [SN74LVC06AD](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC06AD/277342)
 
@@ -115,21 +105,9 @@ If the onboard hardware interface is included, that adds another couple buttons 
 
 Inputs are ingested through shift registers, so it comes in as binary. Registers are usually available in 8 or 16-bit widths, which also aligns with some input formats neatly.
 
-I propose the following bit layouts, depending on our decision for the supported input options. Right now the demonstration is already using the 32-bit format specified below, but that is easily changed:
+I propose the following bit layout:
 
 ```
-2L6B + Start -> 16 bits
--P1----- -P2-----
-UDLRSABC UDLRSABC
-
-2L8B -> 16 bits
--P1----- -P2-----
-UDLRABCD UDLRABCD
-
-2L12B + Start -> 20 bits (round up to 24, can add Starts, 2 extra for onboard hw)
--P1----- -Shared- -P2-----
-UDLRSABC DEF0DEF0 UDLRSABC
-
 2L16B + Start -> 26 bits (round up to 32, 6 extra for onboard hw)
 -P1----- -------- -P2----- --------
 UDLRSABC DEFGH000 UDLRSABC DEFGH000

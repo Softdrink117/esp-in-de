@@ -82,28 +82,6 @@ F 3 "" H 8100 2600 50  0001 C CNN
 	1    8100 2600
 	1    0    0    -1  
 $EndComp
-$Comp
-L ESP-In-De_Symbols:Conn_20_Pin_Joystick J?
-U 1 1 604081B6
-P 1500 1600
-F 0 "J?" H 1550 2225 50  0000 C CNN
-F 1 "Player 1 Buttons" H 1550 2134 50  0000 C CNN
-F 2 "" H 1500 1600 50  0001 C CNN
-F 3 "https://focusattack.com/20-pin-joystick-button-harness/" H 1500 1600 50  0001 C CNN
-	1    1500 1600
-	1    0    0    -1  
-$EndComp
-$Comp
-L ESP-In-De_Symbols:Conn_20_Pin_Joystick J?
-U 1 1 6040943B
-P 1500 3000
-F 0 "J?" H 1550 3625 50  0000 C CNN
-F 1 "Player 2 Buttons" H 1550 3534 50  0000 C CNN
-F 2 "" H 1500 3000 50  0001 C CNN
-F 3 "https://focusattack.com/20-pin-joystick-button-harness/" H 1500 3000 50  0001 C CNN
-	1    1500 3000
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	5400 700  5400 900 
 Wire Wire Line
@@ -124,124 +102,6 @@ Wire Wire Line
 	4800 1100 4800 2000
 Wire Wire Line
 	4800 2000 4900 2000
-Text GLabel 1300 1200 0    50   Output ~ 0
-In_P1_Up
-Text GLabel 1300 1300 0    50   Output ~ 0
-In_P1_Right
-Text GLabel 1300 1500 0    50   Output ~ 0
-In_P1_Start
-Text GLabel 1300 1600 0    50   Output ~ 0
-In_P1_B2
-Text GLabel 1300 1700 0    50   Output ~ 0
-In_P1_B7
-Text GLabel 1300 1800 0    50   Output ~ 0
-In_P1_B4
-Text GLabel 1300 1900 0    50   Output ~ 0
-In_P1_B6
-$Comp
-L power:GND #PWR?
-U 1 1 6041B520
-P 800 2000
-F 0 "#PWR?" H 800 1750 50  0001 C CNN
-F 1 "GND" H 805 1827 50  0000 C CNN
-F 2 "" H 800 2000 50  0001 C CNN
-F 3 "" H 800 2000 50  0001 C CNN
-	1    800  2000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 6041C86F
-P 2300 2000
-F 0 "#PWR?" H 2300 1750 50  0001 C CNN
-F 1 "GND" H 2305 1827 50  0000 C CNN
-F 2 "" H 2300 2000 50  0001 C CNN
-F 3 "" H 2300 2000 50  0001 C CNN
-	1    2300 2000
-	1    0    0    -1  
-$EndComp
-Text GLabel 1800 1200 2    50   Output ~ 0
-In_P1_Down
-Text GLabel 1800 1300 2    50   Output ~ 0
-In_P1_Left
-Text GLabel 1800 1500 2    50   Output ~ 0
-In_P1_B1
-Text GLabel 1800 1600 2    50   Output ~ 0
-In_P1_B3
-$Comp
-L power:GND #PWR?
-U 1 1 6041DCCC
-P 2300 1700
-F 0 "#PWR?" H 2300 1450 50  0001 C CNN
-F 1 "GND" H 2305 1527 50  0000 C CNN
-F 2 "" H 2300 1700 50  0001 C CNN
-F 3 "" H 2300 1700 50  0001 C CNN
-	1    2300 1700
-	1    0    0    -1  
-$EndComp
-Text GLabel 1800 1800 2    50   Output ~ 0
-In_P1_B5
-Text GLabel 1800 1900 2    50   Output ~ 0
-In_P1_B8
-Text GLabel 1800 2600 2    50   Output ~ 0
-In_P2_Down
-Text GLabel 1800 2700 2    50   Output ~ 0
-In_P2_Left
-Text GLabel 1800 2900 2    50   Output ~ 0
-In_P2_B1
-Text GLabel 1800 3000 2    50   Output ~ 0
-In_P2_B3
-Text GLabel 1800 3200 2    50   Output ~ 0
-In_P2_B5
-Text GLabel 1800 3300 2    50   Output ~ 0
-In_P2_B8
-$Comp
-L power:GND #PWR?
-U 1 1 6042164B
-P 2300 3100
-F 0 "#PWR?" H 2300 2850 50  0001 C CNN
-F 1 "GND" H 2305 2927 50  0000 C CNN
-F 2 "" H 2300 3100 50  0001 C CNN
-F 3 "" H 2300 3100 50  0001 C CNN
-	1    2300 3100
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 6042216D
-P 2300 3400
-F 0 "#PWR?" H 2300 3150 50  0001 C CNN
-F 1 "GND" H 2305 3227 50  0000 C CNN
-F 2 "" H 2300 3400 50  0001 C CNN
-F 3 "" H 2300 3400 50  0001 C CNN
-	1    2300 3400
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR?
-U 1 1 6042296E
-P 800 3400
-F 0 "#PWR?" H 800 3150 50  0001 C CNN
-F 1 "GND" H 805 3227 50  0000 C CNN
-F 2 "" H 800 3400 50  0001 C CNN
-F 3 "" H 800 3400 50  0001 C CNN
-	1    800  3400
-	1    0    0    -1  
-$EndComp
-Text GLabel 1300 2600 0    50   Output ~ 0
-In_P2_Up
-Text GLabel 1300 2700 0    50   Output ~ 0
-In_P2_Right
-Text GLabel 1300 2900 0    50   Output ~ 0
-In_P2_Start
-Text GLabel 1300 3000 0    50   Output ~ 0
-In_P2_B2
-Text GLabel 1300 3100 0    50   Output ~ 0
-In_P2_B7
-Text GLabel 1300 3200 0    50   Output ~ 0
-In_P2_B4
-Text GLabel 1300 3300 0    50   Output ~ 0
-In_P2_B6
 Text GLabel 4000 1300 0    50   Input ~ 0
 In_P1_Up
 Wire Wire Line
@@ -1054,18 +914,6 @@ F 3 "" H 10500 1000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1800 2000 2300 2000
-Wire Wire Line
-	1800 1700 2300 1700
-Wire Wire Line
-	1300 2000 800  2000
-Wire Wire Line
-	800  3400 1300 3400
-Wire Wire Line
-	1800 3400 2300 3400
-Wire Wire Line
-	1800 3100 2300 3100
-Wire Wire Line
 	11700 2100 11900 2100
 Wire Wire Line
 	11900 2100 11900 2500
@@ -1704,4 +1552,278 @@ Wire Wire Line
 	12200 5600 12800 5600
 Wire Wire Line
 	12200 5600 12200 6500
+Text Notes 700  5700 0    50   ~ 0
+Note:\nSW_Bypass_Auto is a hardware switch\nto disable all 'advanced' input processing\n(autofire, macros, etc.). It still allows\nremapping to be used.\nThis is a convenience feature to quickly\nenable/disable the aspects of the device\nthat might be considered 'unfair', sort of\nlike a 'tournament mode' toggle.
+$Comp
+L ESP-In-De_Symbols:Conn_20_Pin_Joystick J?
+U 1 1 604081B6
+P 1500 1600
+F 0 "J?" H 1550 2225 50  0000 C CNN
+F 1 "Player 1 Buttons In" H 1550 2134 50  0000 C CNN
+F 2 "" H 1500 1600 50  0001 C CNN
+F 3 "https://focusattack.com/20-pin-joystick-button-harness/" H 1500 1600 50  0001 C CNN
+	1    1500 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L ESP-In-De_Symbols:Conn_20_Pin_Joystick J?
+U 1 1 6040943B
+P 1500 3000
+F 0 "J?" H 1550 3625 50  0000 C CNN
+F 1 "Player 2 Buttons In" H 1550 3534 50  0000 C CNN
+F 2 "" H 1500 3000 50  0001 C CNN
+F 3 "https://focusattack.com/20-pin-joystick-button-harness/" H 1500 3000 50  0001 C CNN
+	1    1500 3000
+	1    0    0    -1  
+$EndComp
+Text GLabel 1300 1200 0    50   Output ~ 0
+In_P1_Up
+Text GLabel 1300 1300 0    50   Output ~ 0
+In_P1_Right
+Text GLabel 1300 1500 0    50   Output ~ 0
+In_P1_Start
+Text GLabel 1300 1600 0    50   Output ~ 0
+In_P1_B2
+Text GLabel 1300 1700 0    50   Output ~ 0
+In_P1_B7
+Text GLabel 1300 1800 0    50   Output ~ 0
+In_P1_B4
+Text GLabel 1300 1900 0    50   Output ~ 0
+In_P1_B6
+$Comp
+L power:GND #PWR?
+U 1 1 6041B520
+P 800 2000
+F 0 "#PWR?" H 800 1750 50  0001 C CNN
+F 1 "GND" H 805 1827 50  0000 C CNN
+F 2 "" H 800 2000 50  0001 C CNN
+F 3 "" H 800 2000 50  0001 C CNN
+	1    800  2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6041C86F
+P 2300 2000
+F 0 "#PWR?" H 2300 1750 50  0001 C CNN
+F 1 "GND" H 2305 1827 50  0000 C CNN
+F 2 "" H 2300 2000 50  0001 C CNN
+F 3 "" H 2300 2000 50  0001 C CNN
+	1    2300 2000
+	1    0    0    -1  
+$EndComp
+Text GLabel 1800 1200 2    50   Output ~ 0
+In_P1_Down
+Text GLabel 1800 1300 2    50   Output ~ 0
+In_P1_Left
+Text GLabel 1800 1500 2    50   Output ~ 0
+In_P1_B1
+Text GLabel 1800 1600 2    50   Output ~ 0
+In_P1_B3
+Text GLabel 1800 1800 2    50   Output ~ 0
+In_P1_B5
+Text GLabel 1800 1900 2    50   Output ~ 0
+In_P1_B8
+Text GLabel 1800 2600 2    50   Output ~ 0
+In_P2_Down
+Text GLabel 1800 2700 2    50   Output ~ 0
+In_P2_Left
+Text GLabel 1800 2900 2    50   Output ~ 0
+In_P2_B1
+Text GLabel 1800 3000 2    50   Output ~ 0
+In_P2_B3
+Text GLabel 1800 3200 2    50   Output ~ 0
+In_P2_B5
+Text GLabel 1800 3300 2    50   Output ~ 0
+In_P2_B8
+$Comp
+L power:GND #PWR?
+U 1 1 6042216D
+P 2300 3400
+F 0 "#PWR?" H 2300 3150 50  0001 C CNN
+F 1 "GND" H 2305 3227 50  0000 C CNN
+F 2 "" H 2300 3400 50  0001 C CNN
+F 3 "" H 2300 3400 50  0001 C CNN
+	1    2300 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6042296E
+P 800 3400
+F 0 "#PWR?" H 800 3150 50  0001 C CNN
+F 1 "GND" H 805 3227 50  0000 C CNN
+F 2 "" H 800 3400 50  0001 C CNN
+F 3 "" H 800 3400 50  0001 C CNN
+	1    800  3400
+	1    0    0    -1  
+$EndComp
+Text GLabel 1300 2600 0    50   Output ~ 0
+In_P2_Up
+Text GLabel 1300 2700 0    50   Output ~ 0
+In_P2_Right
+Text GLabel 1300 2900 0    50   Output ~ 0
+In_P2_Start
+Text GLabel 1300 3000 0    50   Output ~ 0
+In_P2_B2
+Text GLabel 1300 3100 0    50   Output ~ 0
+In_P2_B7
+Text GLabel 1300 3200 0    50   Output ~ 0
+In_P2_B4
+Text GLabel 1300 3300 0    50   Output ~ 0
+In_P2_B6
+Wire Wire Line
+	1800 2000 2300 2000
+Wire Wire Line
+	1800 1700 2300 1700
+Wire Wire Line
+	1300 2000 800  2000
+Wire Wire Line
+	800  3400 1300 3400
+Wire Wire Line
+	1800 3400 2300 3400
+Wire Wire Line
+	1800 3100 2300 3100
+$Comp
+L ESP-In-De_Symbols:Conn_20_Pin_Joystick J?
+U 1 1 606BFAC9
+P 15300 1600
+F 0 "J?" H 15350 2225 50  0000 C CNN
+F 1 "Player 1 Buttons" H 15350 2134 50  0000 C CNN
+F 2 "" H 15300 1600 50  0001 C CNN
+F 3 "https://focusattack.com/20-pin-joystick-button-harness/" H 15300 1600 50  0001 C CNN
+	1    15300 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L ESP-In-De_Symbols:Conn_20_Pin_Joystick J?
+U 1 1 606C1865
+P 15300 3000
+F 0 "J?" H 15350 3625 50  0000 C CNN
+F 1 "Player 2 Buttons" H 15350 3534 50  0000 C CNN
+F 2 "" H 15300 3000 50  0001 C CNN
+F 3 "https://focusattack.com/20-pin-joystick-button-harness/" H 15300 3000 50  0001 C CNN
+	1    15300 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 606C3515
+P 16100 3400
+F 0 "#PWR?" H 16100 3150 50  0001 C CNN
+F 1 "GND" H 16105 3227 50  0000 C CNN
+F 2 "" H 16100 3400 50  0001 C CNN
+F 3 "" H 16100 3400 50  0001 C CNN
+	1    16100 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 606C3D7F
+P 14600 3400
+F 0 "#PWR?" H 14600 3150 50  0001 C CNN
+F 1 "GND" H 14605 3227 50  0000 C CNN
+F 2 "" H 14600 3400 50  0001 C CNN
+F 3 "" H 14600 3400 50  0001 C CNN
+	1    14600 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 606C4283
+P 16100 2000
+F 0 "#PWR?" H 16100 1750 50  0001 C CNN
+F 1 "GND" H 16105 1827 50  0000 C CNN
+F 2 "" H 16100 2000 50  0001 C CNN
+F 3 "" H 16100 2000 50  0001 C CNN
+	1    16100 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 606C482C
+P 14600 2000
+F 0 "#PWR?" H 14600 1750 50  0001 C CNN
+F 1 "GND" H 14605 1827 50  0000 C CNN
+F 2 "" H 14600 2000 50  0001 C CNN
+F 3 "" H 14600 2000 50  0001 C CNN
+	1    14600 2000
+	1    0    0    -1  
+$EndComp
+Text GLabel 15100 1200 0    50   Input ~ 0
+Out_P1_Up
+Text GLabel 15100 1300 0    50   Input ~ 0
+Out_P1_Right
+Text GLabel 15100 1500 0    50   Input ~ 0
+Out_P1_Start
+Text GLabel 15100 1600 0    50   Input ~ 0
+Out_P1_B2
+Text GLabel 15100 1700 0    50   Input ~ 0
+Out_P1_B7
+Text GLabel 15100 1800 0    50   Input ~ 0
+Out_P1_B4
+Text GLabel 15100 1900 0    50   Input ~ 0
+Out_P1_B6
+Text GLabel 15100 2600 0    50   Input ~ 0
+Out_P2_Up
+Text GLabel 15100 2700 0    50   Input ~ 0
+Out_P2_Right
+Text GLabel 15100 2900 0    50   Input ~ 0
+Out_P2_Start
+Text GLabel 15100 3000 0    50   Input ~ 0
+Out_P2_B2
+Text GLabel 15100 3100 0    50   Input ~ 0
+Out_P2_B7
+Text GLabel 15100 3200 0    50   Input ~ 0
+Out_P2_B4
+Text GLabel 15100 3300 0    50   Input ~ 0
+Out_P2_B6
+Text GLabel 15600 1200 2    50   Input ~ 0
+Out_P1_Down
+Text GLabel 15600 1300 2    50   Input ~ 0
+Out_P1_Left
+Text GLabel 15600 1500 2    50   Input ~ 0
+Out_P1_B1
+Text GLabel 15600 1600 2    50   Input ~ 0
+Out_P1_B3
+Text GLabel 15600 1800 2    50   Input ~ 0
+Out_P1_B5
+Text GLabel 15600 1900 2    50   Input ~ 0
+Out_P1_B8
+Wire Wire Line
+	15600 1700 16100 1700
+Wire Wire Line
+	15600 2000 16100 2000
+Wire Wire Line
+	15100 2000 14600 2000
+Wire Wire Line
+	14600 3400 15100 3400
+Wire Wire Line
+	15600 3400 16100 3400
+Wire Wire Line
+	15600 3100 16100 3100
+Text GLabel 15600 2600 2    50   Input ~ 0
+Out_P2_Down
+Text GLabel 15600 2700 2    50   Input ~ 0
+Out_P2_Left
+Text GLabel 15600 2900 2    50   Input ~ 0
+Out_P2_B1
+Text GLabel 15600 3000 2    50   Input ~ 0
+Out_P2_B3
+Text GLabel 15600 3200 2    50   Input ~ 0
+Out_P2_B5
+Text GLabel 15600 3300 2    50   Input ~ 0
+Out_P2_B8
+Wire Wire Line
+	2300 1700 2300 2000
+Connection ~ 2300 2000
+Wire Wire Line
+	2300 3100 2300 3400
+Connection ~ 2300 3400
+Wire Wire Line
+	16100 3100 16100 3400
+Connection ~ 16100 3400
+Wire Wire Line
+	16100 1700 16100 2000
+Connection ~ 16100 2000
 $EndSCHEMATC
