@@ -26,6 +26,20 @@ This project describes a multi-function input intermediary for arcade cabinets t
   - Available over the same web interface as the input display
   - Optional: onboard graphical hardware interface as well
      - Current theory: I2C OLED with persistence + some tac switches (maybe 3?) to navigate options.
+        - Rotary encoder might be a better choice for onboard interface (EC11)
+
+#### DIP Switches
+
+Several DIP switches are available for configuration and quickly enabling/disabling different features.
+
+| Switch | Name | Description |
+| :----: | :--- | :---------- |
+| SW1 | Bypass Auto | A hardware switch to disable all 'advanced' input processing (autofire, macros, etc.). <br>It still allows remapping to be used. |
+| SW2 | | |
+| SW3 | | |
+| SW4 | | |
+| SW5 | | |
+| SW6 | | |
 
 ### Feature Requests
 
@@ -163,14 +177,14 @@ PCB
 
 #### Description
 
-This project is an attempt to make a real-time input display solution that can capture arcade hardware inputs (in JAMMA format) and produce an animated visualization that is usable as an OBS Browser Source for live streaming.
+This project is an attempt to make a real-time input display solution that can capture arcade hardware inputs (in JAMMA format) and produce an animated visualization that is usable as an OBS Browser Source for live streaming. It is inspired by https://github.com/wnka/arcadebuttons-node-pi, a similar project using a Raspberry Pi.
 
 It is **not** any of the following:
 
 - *A plug and play solution for console or PC controllers.*
   - Though they could be adapted to it, console and PC controllers use different standards and won't work without modification.
   - ESP In. De. relies on capturing digital signals from each button or lever microswitch. These signals can usually be tapped directly from a console controller PCB, but this is an advanced and unsupported use case.
-  - For PC users looking to visualize keyboard or USB controller inputs, there are already many excellent tools available *(PROVIDE A LINK HERE)*
+  - For PC users looking to visualize keyboard or USB controller inputs, there are already many excellent tools available *(for example, https://github.com/univrsal/input-overlay, https://gamepadviewer.com/#about, etc.)*
 - *A tool to capture inputs with 100% reliability.*
   - When connected to a good WiFi signal and in a normal home EMI (Electro-Magnetic Interference) environment, ESP In. De. actually does capture inputs with excellent accuracy. However, it uses WiFi connectivity, and uses a fast, but not guaranteed, network transport protocol (UDP WebSockets). Thus it cannot be relied upon for situations where every single input is critical.
 - *A tool to capture 'TAS'es or input recordings of arcade games.*
