@@ -138,7 +138,7 @@ As long as that ends up being <= sync pulse duration at 31kHz (which is theoreti
 
 #### Input
 
-| <div style="width:200px">Part</div> | Quantity | Through-Hole | SMD |
+| Part &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Quantity | Through-Hole &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | SMD |
 | ---: | :------: | :----------- | :--- |
 | Pullup Resistor Array | 4 | [4609X-101-103LF](https://www.digikey.com/en/products/detail/4609X-101-103LF/4609X-101-103LF-ND/2634616) |   |
 | PISO Shift Register | 4 | 74HC165
@@ -148,7 +148,7 @@ As long as that ends up being <= sync pulse duration at 31kHz (which is theoreti
 
 #### Sync
 
-| <div style="width:200px">Part</div>  | Quantity | <div style="width:200px">Through-Hole</div> | SMD |
+| Part &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Quantity | Through-Hole &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | SMD |
 | ---: | :------: | :----------- | :--- |
 | Non-Inverting Buffer | 1 | | [SN74LVC1G34](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC1G34DBVR/738115) |
 
