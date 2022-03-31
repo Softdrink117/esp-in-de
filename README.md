@@ -117,7 +117,7 @@ Open-collector/drain buffer/inverter                          |
 Cabinet Input Harness(es)                           Cabinet Video Harness
 ```
 
-If the onboard hardware interface is included, that adds another couple buttons (which can probably be wired through unused bits of the input register chain) and an I2C display
+Not shown on this diagram
 
 ### Sync Processing
 
@@ -134,7 +134,24 @@ It would also be possible to directly connect to the GPIO and simply use softwar
 
 As long as that ends up being <= sync pulse duration at 31kHz (which is theoretically 1/2 the pulse at 15kHz), that should be scalable to higher resolutions as well. Maybe would need to do `0.4 * 1/15kHz` or something to give a bit more buffer, but the basic theory seems sound.
 
-### BOM (Still WIP, not yet prototyped in hardware!!!)
+## Variants
+
+ESP In. De. as a concept is scalable to several different hardware implementations, for different applications:
+
+- **ESP In. De. JAMMA THT** is a JAMMA-compliant interstitial device, designed to connect in between a game board (PCB, JVS I/O board, etc.) and an arcade cabinet wiring harness. It features JAMMA connectors on both sides, and is a fully integrated single-board solution.
+  - As indicated in the name, this version uses through-hole components for ease of hand-assembly. This has the consequence of dramatically increasing PCB size and component costs, making it unsuitable for mass-production.
+  - As of 2022/03/30, this is where primary development is taking place.
+- **ESP In. De. JAMMA SMD** is a production-ready variant of the above, using surface mount components for ease of manufacturing and lower cost.
+  - As of 2022/03/30, this version has not yet been started, but is in the late planning stages.
+- **ESP In. De. JVS** is a concept for a variant of ESP In. De. that is specifically designed as a *cabinet* interstitial, for use in JVS-compliant arcade cabinets. Since JVS harness wiring upstream of the IO is not standardized between manufacturers, this variant may need additional adapter hardware (daughterboards or cable harness adapters) to be compatible with different cabinets.
+  - As of 2022/03/30, this version has not yet been started.
+- **ESP In. De. Console** is a concept for a variant of ESP In. De. that is specifically designed to interface with console arcade sticks. Many 3rd-party arcade stick PCBs have adopted a 20-pin standard for their input connections. It should be very possible to develop a variant that uses these connectors for input and output.
+  - As of 2022/03/30, this version has not yet been started.
+
+
+### BOM
+
+Still WIP, not yet prototyped in hardware!!!
 
 #### Input
 
@@ -143,14 +160,20 @@ As long as that ends up being <= sync pulse duration at 31kHz (which is theoreti
 | Pullup Resistor Array | 4 | [4609X-101-103LF](https://www.digikey.com/en/products/detail/4609X-101-103LF/4609X-101-103LF-ND/2634616) |   |
 | PISO Shift Register | 4 | 74HC165
 | SIPO Shift Register | 4 | [SN74AHC594N‎](https://www.digikey.com/en/products/detail/SN74AHC594N/296-33681-5-ND/1566900)
-| Open-Drain Inverter | 5 | [CD74AC05E](https://www.digikey.com/en/products/detail/texas-instruments/CD74AC05E/375662) | [SN74LVC06AD](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC06AD/277342)
-| Rotary Encoder with Switch | 1 | [PEC12R-2217F-S0024](https://www.digikey.com/en/products/detail/bourns-inc/PEC12R-2217F-S0024/4499642) | |
+| Open-Drain Inverter | 5 | [CD74AC05E](https://www.digikey.com/en/products/detail/texas-instruments/CD74AC05E/375662) | ~~[SN74LVC06AD](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC06AD/277342)~~
+| Rotary Encoder with Switch | 1 | [PEC12R-2217F-S0024](https://www.digikey.com/en/products/detail/bourns-inc/PEC12R-2217F-S0024/4499642) | N/A |
+| | | | |
+| Open-Drain SIPO Register | 4 | ~~[TPIC6C596N](https://www.digikey.com/en/products/detail/texas-instruments/TPIC6C596N/378490)~~ | [NPIC6C596](https://www.digikey.com/en/products/detail/nexperia-usa-inc/NPIC6C596ADJ/4843269)<sup>1</sup> |
+
+<sup>1</sup>SMD version will utilize the NPIC6C596 instead of separate SIPO and buffer ICs; through-hole cannot use a similar part easily because of logic level mismatch.
 
 #### Sync
 
 | Part &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Quantity | Through-Hole &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | SMD |
 | ---: | :------: | :----------- | :--- |
-| Non-Inverting Buffer | 1 | | [SN74LVC1G34](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC1G34DBVR/738115) |
+| Non-Inverting Buffer | 1 | [SN74LV125A](https://www.digikey.com/en/products/detail/texas-instruments/SN74LV125AN/1594902) | [SN74LVC1G34](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC1G34DBVR/738115)<sup>1</sup> |
+
+<sup>1</sup>Direct equivalent would be [SN74LVC125](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC125ADR/377413), but only one output is needed; 74LVC1G34 is a single-bit equivalent in a more compact package.
 
 ## Data Format
 
@@ -203,66 +226,28 @@ Does this work or is it actually bad?
 
 -----
 
-### Original Scope and Description (Pure Input Viewer)
+### Installation instructions:
 
-#### Notes:
-
-Recommended circuit for handling the inputs (per Hatsune Mike):
-
-```
-Button
-|
-|--- level-shifting buffer (e.g. 74LVCH16245) --> GPIO input (in non-pullup mode)
-|
-PCB
-```
-
-> IDT74LVCH16245A explicitly calls out "All pins can be driven from either 3.3V or 5V devices"
-"This feature allows the use of this device as a translator in a mixed 3.3/5V supply system." you can just die DIR and OE to GND, hook up the inputs to bus B, and read bus A using the MCU/Rpi/whatever
-
-Super high level diagram:
-```
-Button
-|
-|--- Level-shifting buffer -- PISO register chain -- serial input* on ESP
-|
-PCB
-```
-*where serial is preferably a hardware serial; though the ESP has enough power that it can probably bitbang the serial just fine over regular GPIO
-
-#### Description
-
-This project is an attempt to make a real-time input display solution that can capture arcade hardware inputs (in JAMMA format) and produce an animated visualization that is usable as an OBS Browser Source for live streaming. It is inspired by https://github.com/wnka/arcadebuttons-node-pi, a similar project using a Raspberry Pi.
-
-It is **not** any of the following:
-
-- *A plug and play solution for console or PC controllers.*
-  - Though they could be adapted to it, console and PC controllers use different standards and won't work without modification.
-  - ESP In. De. relies on capturing digital signals from each button or lever microswitch. These signals can usually be tapped directly from a console controller PCB, but this is an advanced and unsupported use case.
-  - For PC users looking to visualize keyboard or USB controller inputs, there are already many excellent tools available *(for example, https://github.com/univrsal/input-overlay, https://gamepadviewer.com/#about, etc.)*
-- *A tool to capture inputs with 100% reliability.*
-  - When connected to a good WiFi signal and in a normal home EMI (Electro-Magnetic Interference) environment, ESP In. De. actually does capture inputs with excellent accuracy. However, it uses WiFi connectivity, and uses a fast, but not guaranteed, network transport protocol (UDP WebSockets). Thus it cannot be relied upon for situations where every single input is critical.
-- *A tool to capture 'TAS'es or input recordings of arcade games.*
-  - As mentioned above, the accuracy of this tool is not guaranteed, and it does not preserve input 'recordings' in any meaningful way.
-  - Furthermore, the technical feasibility of 'TAS'ing arcade hardware varies dramatically from game to game, and is well beyond the scope of this project.
+Required libraries:
+- **ESP8266 Core Libraries** (installed via Board Manager)
+- **ESP8266FS plugin** for Arduino IDE (https://github.com/esp8266/arduino-esp8266fs-plugin)
+- **Arduino WebSockets Server and Client** from links2004 (https://github.com/Links2004/arduinoWebSockets) installed as a ZIP library in the IDE
 
 
-  -----
+To flash resources (html, css, etc.) to the SPI filesystem:
+- Make sure *Tools>Flash Size* is greater than the combined size of entire sketch + data folder structure
+- Make sure *Tools>Flash Size* is less than or equal to the size of the installed memory on the board
+- Close serial monitor before upload
+- Enter Program mode on ESP if necessary (some boards have auto-program)
+- Ensure the ESP8266FS Tool is installed in Arduino Sketchbook>tools folder
+- https://github.com/esp8266/arduino-esp8266fs-plugin
+- Upload the data folder contents using *Tools>ESP8266 Data Upload*
+- Upload the program data as normal from the Arduino IDE
 
-  ### Installation instructions:
+-----
 
-  Required libraries:
-  - **ESP8266 Core Libraries** (installed via Board Manager)
-  - **ESP8266FS plugin** for Arduino IDE (https://github.com/esp8266/arduino-esp8266fs-plugin)
-  - **Arduino WebSockets Server and Client** from links2004 (https://github.com/Links2004/arduinoWebSockets) installed as a ZIP library in the IDE
+### Acknowledgements
 
+This project would not have been possible without the help of the following people:
 
-  To flash resources (html, css, etc.) to the SPI filesystem:
-  - Make sure *Tools>Flash Size* is greater than the combined size of entire sketch + data folder structure
-  - Make sure *Tools>Flash Size* is less than or equal to the size of the installed memory on the board
-  - Close serial monitor before upload
-  - Enter Program mode on ESP if necessary (some boards have auto-program)
-  - Ensure the ESP8266FS Tool is installed in Arduino Sketchbook>tools folder
-  - https://github.com/esp8266/arduino-esp8266fs-plugin
-  - Upload the data folder contents using *Tools>ESP8266 Data Upload*
-  - Upload the program data as normal from the Arduino IDE
+- [Hatsune Mike](https://github.com/Mikejmoffitt)
