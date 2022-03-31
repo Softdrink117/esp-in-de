@@ -251,3 +251,4 @@ To flash resources (html, css, etc.) to the SPI filesystem:
 This project would not have been possible without the help of the following people:
 
 - [Hatsune Mike](https://github.com/Mikejmoffitt)
+- [Thomas Daede](https://github.com/tdaede)
