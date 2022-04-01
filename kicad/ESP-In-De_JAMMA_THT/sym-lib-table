@@ -1,0 +1,5 @@
+(sym_lib_table
+  (lib (name "Jamma")(type "Legacy")(uri "${KIPRJMOD}/lib/created_by_others/buffis/Jamma.lib")(options "")(descr "")(disabled))
+  (lib (name "td_symbols")(type "KiCad")(uri "F:/GitHub/esp-in-de/kicad/lib/created_by_others/tdaede/td_symbols.kicad_sym")(options "")(descr ""))
+  (lib (name "ESP-In-De_Symbols")(type "KiCad")(uri "F:/GitHub/esp-in-de/kicad/lib/ESP-In-De_Symbols.kicad_sym")(options "")(descr ""))
+)
