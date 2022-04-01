@@ -117,16 +117,22 @@ Open-collector/drain buffer/inverter                          |
 Cabinet Input Harness(es)                           Cabinet Video Harness
 ```
 
-Not shown on this diagram
-
 ### Sync Processing
 
-Signal should be buffered (or inverted) before being processed. TTL level according to JAMMA spec, so should be pretty straightforward.
+Signal should be buffered (or inverted) before being processed. TTL level according to JAMMA spec, so should be pretty straightforward. The simplified topology of this sync processing circuit is shown below:
+
+```
+Game Bd
+    |
+    |--- Buffer --- RC Low-Pass --- GPIO
+    |
+Cabinet
+```
 
 Two options stand out:
 
 - **RC circuit low-pass filter** (tuned around 120Hz) to pass only vertical sync pulses, then Schmitt trigger or software debounce.
-- **LM1881** (or the similar LMH1980) sync ICs. Though designed for use with composite video, they have been proven to work with composite sync through JAMMA in other devices.
+- ~~**LM1881** (or the similar LMH1980) sync ICs. Though designed for use with composite video, they have been proven to work with composite sync through JAMMA in other devices.~~
 
 It would also be possible to directly connect to the GPIO and simply use software sampling and filtering to evaluate, but this requires a high polling rate to ensure accuracy (ideally around 60kHz). Alternatively, an interrupt could be used. Per Hatsune Mike:
 
@@ -138,14 +144,14 @@ As long as that ends up being <= sync pulse duration at 31kHz (which is theoreti
 
 ESP In. De. as a concept is scalable to several different hardware implementations, for different applications:
 
-- **ESP In. De. JAMMA THT** is a JAMMA-compliant interstitial device, designed to connect in between a game board (PCB, JVS I/O board, etc.) and an arcade cabinet wiring harness. It features JAMMA connectors on both sides, and is a fully integrated single-board solution.
+- ***ESP In. De. JAMMA THT*** is a JAMMA-compliant interstitial device, designed to connect in between a game board (PCB, JVS I/O board, etc.) and an arcade cabinet wiring harness. It features JAMMA connectors on both sides, and is a fully integrated single-board solution.
   - As indicated in the name, this version uses through-hole components for ease of hand-assembly. This has the consequence of dramatically increasing PCB size and component costs, making it unsuitable for mass-production.
   - As of 2022/03/30, this is where primary development is taking place.
-- **ESP In. De. JAMMA SMD** is a production-ready variant of the above, using surface mount components for ease of manufacturing and lower cost.
+- ***ESP In. De. JAMMA SMD*** is a production-ready variant of the above, using surface mount components for ease of manufacturing and lower cost.
   - As of 2022/03/30, this version has not yet been started, but is in the late planning stages.
-- **ESP In. De. JVS** is a concept for a variant of ESP In. De. that is specifically designed as a *cabinet* interstitial, for use in JVS-compliant arcade cabinets. Since JVS harness wiring upstream of the IO is not standardized between manufacturers, this variant may need additional adapter hardware (daughterboards or cable harness adapters) to be compatible with different cabinets.
+- ***ESP In. De. JVS*** is a concept for a variant of ESP In. De. that is specifically designed as a *cabinet* interstitial, for use in JVS-compliant arcade cabinets. Since JVS harness wiring upstream of the IO is not standardized between manufacturers, this variant may need additional adapter hardware (daughterboards or cable harness adapters) to be compatible with different cabinets.
   - As of 2022/03/30, this version has not yet been started.
-- **ESP In. De. Console** is a concept for a variant of ESP In. De. that is specifically designed to interface with console arcade sticks. Many 3rd-party arcade stick PCBs have adopted a 20-pin standard for their input connections. It should be very possible to develop a variant that uses these connectors for input and output.
+- ***ESP In. De. Console*** is a concept for a variant of ESP In. De. that is specifically designed to interface with console arcade sticks. Many 3rd-party arcade stick PCBs have adopted a 20-pin standard for their input connections. It should be very possible to develop a variant that uses these connectors for input and output.
   - As of 2022/03/30, this version has not yet been started.
 
 
@@ -153,27 +159,24 @@ ESP In. De. as a concept is scalable to several different hardware implementatio
 
 Still WIP, not yet prototyped in hardware!!!
 
-#### Input
-
 | Part &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Quantity | Through-Hole &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | SMD |
 | ---: | :------: | :----------- | :--- |
-| Pullup Resistor Array | 4 | [4609X-101-103LF](https://www.digikey.com/en/products/detail/4609X-101-103LF/4609X-101-103LF-ND/2634616) |   |
-| PISO Shift Register | 4 | 74HC165
-| SIPO Shift Register | 4 | [SN74AHC594N‎](https://www.digikey.com/en/products/detail/SN74AHC594N/296-33681-5-ND/1566900)
-| Open-Drain Inverter | 5 | [CD74AC05E](https://www.digikey.com/en/products/detail/texas-instruments/CD74AC05E/375662) | ~~[SN74LVC06AD](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC06AD/277342)~~
+| **Input and Output Logic** | | | |
+| Pullup Resistor Array | 4 | [4609X-101-103LF](https://www.digikey.com/en/products/detail/4609X-101-103LF/4609X-101-103LF-ND/2634616) | [746X101103JP](https://www.digikey.com/en/products/detail/cts-resistor-products/746X101103JP/1118406)  |
+| PISO Shift Register | 4 | [74HC165](https://www.digikey.com/en/products/detail/texas-instruments/CD74HC165E/475911) | [74LV165](https://www.digikey.com/en/products/detail/nexperia-usa-inc/74LV165D-118/1231120)
+| SIPO Shift Register | 4 | [SN74AHC594N‎](https://www.digikey.com/en/products/detail/SN74AHC594N/296-33681-5-ND/1566900) | ~~[74LV594](https://www.digikey.com/en/products/detail/texas-instruments/SN74LV594ADR/1591586)~~<sup>1</sup>
+| Open-Drain Inverter | 5 | [CD74AC05E](https://www.digikey.com/en/products/detail/texas-instruments/CD74AC05E/375662) | ~~[SN74LVC06AD](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC06AD/277342)~~<sup>1</sup>
 | Rotary Encoder with Switch | 1 | [PEC12R-2217F-S0024](https://www.digikey.com/en/products/detail/bourns-inc/PEC12R-2217F-S0024/4499642) | N/A |
 | | | | |
 | Open-Drain SIPO Register | 4 | ~~[TPIC6C596N](https://www.digikey.com/en/products/detail/texas-instruments/TPIC6C596N/378490)~~ | [NPIC6C596](https://www.digikey.com/en/products/detail/nexperia-usa-inc/NPIC6C596ADJ/4843269)<sup>1</sup> |
+| **Sync Processing** | | | |
+| Non-Inverting Buffer | 1 | ~~[SN74LV125A](https://www.digikey.com/en/products/detail/texas-instruments/SN74LV125AN/1594902)~~ | [SN74LVC1G34](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC1G34DBVR/738115)<sup>2</sup> |
+| | | | |
+| **Passives** | | | |
 
-<sup>1</sup>SMD version will utilize the NPIC6C596 instead of separate SIPO and buffer ICs; through-hole cannot use a similar part easily because of logic level mismatch.
+<sup>1</sup>SMD version will utilize the NPIC6C596 instead of separate SIPO and buffer ICs; through-hole cannot use a similar part easily because of logic level mismatch.<br>
+<sup>2</sup>~~Direct equivalent would be [SN74LVC125](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC125ADR/377413), but only one output is needed;~~ 74LVC1G34 is a single-bit buffer in a compact package. THT variant uses unused pins of the output stage inverters, so it does not need a non-inverting buffer.
 
-#### Sync
-
-| Part &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Quantity | Through-Hole &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | SMD |
-| ---: | :------: | :----------- | :--- |
-| Non-Inverting Buffer | 1 | [SN74LV125A](https://www.digikey.com/en/products/detail/texas-instruments/SN74LV125AN/1594902) | [SN74LVC1G34](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC1G34DBVR/738115)<sup>1</sup> |
-
-<sup>1</sup>Direct equivalent would be [SN74LVC125](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC125ADR/377413), but only one output is needed; 74LVC1G34 is a single-bit equivalent in a more compact package.
 
 ## Data Format
 
