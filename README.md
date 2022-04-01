@@ -92,29 +92,27 @@ Combinations of switches can be used to create 'lockout' conditions quickly, for
 
 ## Circuit Design
 
-Very very high level, pls no bully
-
-Power and other 'infrastructure' omitted for clarity
+High level diagram explaining overall topology. Power and other 'infrastructure' omitted for clarity.
 
 ```
-Buttons/Levers
-|
-|
-Pullup resistor array (10kOhm)
-|
-PISO register(s)
-|
-[SPI Input          ]
-[                   ]
-[MCU            GPIO]----- Optional Sync Sense ----- [ Sync Processing ]
-[                   ]                                         |
-[SPI Output         ]                                         |
-|                                                             |
-SIPO register(s)                                              |
-|                                                             |
-Open-collector/drain buffer/inverter                          |
-|                                                             |
-Cabinet Input Harness(es)                           Cabinet Video Harness
+[ ============================== CABINET ============================ ]
+        |                                                     |
+        |                                                     |
+  Pullup resistor array (10kOhm)                              |
+        |                                                     |
+  PISO register(s)                                            |
+        |                                                     |
+[    SPI Input                    ]                           |
+[                                 ]                           |
+[               MCU           GPIO] --------------- [ Sync Processing ]
+[                                 ]                           |
+[   SPI Output                    ]                           |
+        |                                                     |
+  SIPO register(s)                                            |
+        |                                                     |
+  Open-collector/drain buffer/inverter                        |
+        |                                                     |
+[ ============================ GAME BOARD =========================== ]
 ```
 
 ### Sync Processing
@@ -129,16 +127,14 @@ Game Bd
 Cabinet
 ```
 
-Two options stand out:
+This consists of an **RC circuit low-pass filter** (tuned around 200Hz) to pass only vertical sync pulses, then Schmitt trigger or software debounce.
 
-- **RC circuit low-pass filter** (tuned around 120Hz) to pass only vertical sync pulses, then Schmitt trigger or software debounce.
+Alternative options:
 - ~~**LM1881** (or the similar LMH1980) sync ICs. Though designed for use with composite video, they have been proven to work with composite sync through JAMMA in other devices.~~
+- Directly connect to the GPIO and simply use software sampling and filtering to evaluate, but this requires a high polling rate to ensure accuracy (ideally around 60kHz). Alternatively, an interrupt could be used. Per Hatsune Mike:
+    > Could hook up TTL sync to an interrupt, and then in the ISR poll until half a line’s duration (0.5 x 1/15khz) and if it’s still asserted then chances are you’re in vblank. Then ignore sync pulses for the next ~8ms or so
 
-It would also be possible to directly connect to the GPIO and simply use software sampling and filtering to evaluate, but this requires a high polling rate to ensure accuracy (ideally around 60kHz). Alternatively, an interrupt could be used. Per Hatsune Mike:
-
-> Could hook up TTL sync to an interrupt, and then in the ISR poll until half a line’s duration (0.5 x 1/15khz) and if it’s still asserted then chances are you’re in vblank. Then ignore sync pulses for the next ~8ms or so
-
-As long as that ends up being <= sync pulse duration at 31kHz (which is theoretically 1/2 the pulse at 15kHz), that should be scalable to higher resolutions as well. Maybe would need to do `0.4 * 1/15kHz` or something to give a bit more buffer, but the basic theory seems sound.
+    - As long as that ends up being <= sync pulse duration at 31kHz (which is theoretically 1/2 the pulse at 15kHz), that should be scalable to higher resolutions as well. Maybe would need to do `0.4 * 1/15kHz` or something to give a bit more buffer, but the basic theory seems sound.
 
 ## Variants
 
@@ -162,20 +158,28 @@ Still WIP, not yet prototyped in hardware!!!
 | Part &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Quantity | Through-Hole &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | SMD |
 | ---: | :------: | :----------- | :--- |
 | **Input and Output Logic** | | | |
-| Pullup Resistor Array | 4 | [4609X-101-103LF](https://www.digikey.com/en/products/detail/4609X-101-103LF/4609X-101-103LF-ND/2634616) | [746X101103JP](https://www.digikey.com/en/products/detail/cts-resistor-products/746X101103JP/1118406)  |
 | PISO Shift Register | 4 | [74HC165](https://www.digikey.com/en/products/detail/texas-instruments/CD74HC165E/475911) | [74LV165](https://www.digikey.com/en/products/detail/nexperia-usa-inc/74LV165D-118/1231120)
 | SIPO Shift Register | 4 | [SN74AHC594N‎](https://www.digikey.com/en/products/detail/SN74AHC594N/296-33681-5-ND/1566900) | ~~[74LV594](https://www.digikey.com/en/products/detail/texas-instruments/SN74LV594ADR/1591586)~~<sup>1</sup>
 | Open-Drain Inverter | 5 | [CD74AC05E](https://www.digikey.com/en/products/detail/texas-instruments/CD74AC05E/375662) | ~~[SN74LVC06AD](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC06AD/277342)~~<sup>1</sup>
-| Rotary Encoder with Switch | 1 | [PEC12R-2217F-S0024](https://www.digikey.com/en/products/detail/bourns-inc/PEC12R-2217F-S0024/4499642) | N/A |
 | | | | |
 | Open-Drain SIPO Register | 4 | ~~[TPIC6C596N](https://www.digikey.com/en/products/detail/texas-instruments/TPIC6C596N/378490)~~ | [NPIC6C596](https://www.digikey.com/en/products/detail/nexperia-usa-inc/NPIC6C596ADJ/4843269)<sup>1</sup> |
 | **Sync Processing** | | | |
 | Non-Inverting Buffer | 1 | ~~[SN74LV125A](https://www.digikey.com/en/products/detail/texas-instruments/SN74LV125AN/1594902)~~ | [SN74LVC1G34](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC1G34DBVR/738115)<sup>2</sup> |
 | | | | |
+| **User Interface** | | | |
+| Rotary Encoder with Switch | 1 | [PEC12R-2217F-S0024](https://www.digikey.com/en/products/detail/bourns-inc/PEC12R-2217F-S0024/4499642) | N/A |
+| | | | |
 | **Passives** | | | |
+| 8x10kOhm Bussed Resistor | 4 | [4609X-101-103LF](https://www.digikey.com/en/products/detail/4609X-101-103LF/4609X-101-103LF-ND/2634616) | [746X101103JP](https://www.digikey.com/en/products/detail/cts-resistor-products/746X101103JP/1118406)  |
+| 0.1uF Capacitor | 17<sup>3</sup> | | |
+| 0.01uF Capacitor | 2 | | |
+| 10kOhm Resistor | 5 | | |
+| 6.8kOhm Resistor | 1 | | |
+
 
 <sup>1</sup>SMD version will utilize the NPIC6C596 instead of separate SIPO and buffer ICs; through-hole cannot use a similar part easily because of logic level mismatch.<br>
-<sup>2</sup>~~Direct equivalent would be [SN74LVC125](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC125ADR/377413), but only one output is needed;~~ 74LVC1G34 is a single-bit buffer in a compact package. THT variant uses unused pins of the output stage inverters, so it does not need a non-inverting buffer.
+<sup>2</sup>Direct equivalent would be [SN74LVC125](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC125ADR/377413), but only one output is needed; 74LVC1G34 is a single-bit buffer in a compact package.
+<sup>3</sup>SMD version requires five fewer decoupling caps because it uses the NPIC6C596 for the functions of both the SIPO register and open-drain inverter of the THT version.
 
 
 ## Data Format
