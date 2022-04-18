@@ -11,7 +11,7 @@ This project describes a multi-function input intermediary for arcade cabinets t
 
 ### Currently Defined Features
 
-- Support for 2L16B + Start
+- Support for 2L16B + Start + Coin
 - Input viewer: animated web visualization that can be used as an OBS Browser Source for live streams
 - Input remapper: arbitrary reassignment of buttons and lever to user preference
 - Sideswap: allow a 1LxB control panel to be used as Player 1 or Player 2
@@ -178,7 +178,7 @@ Still WIP, not yet prototyped in hardware!!!
 
 
 <sup>1</sup>SMD version will utilize the NPIC6C596 instead of separate SIPO and buffer ICs; through-hole cannot use a similar part easily because of logic level mismatch.<br>
-<sup>2</sup>Direct equivalent would be [SN74LVC125](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC125ADR/377413), but only one output is needed; 74LVC1G34 is a single-bit buffer in a compact package.
+<sup>2</sup>Direct equivalent would be [SN74LVC125](https://www.digikey.com/en/products/detail/texas-instruments/SN74LVC125ADR/377413), but only one output is needed; 74LVC1G34 is a single-bit buffer in a compact package.<br>
 <sup>3</sup>SMD version requires five fewer decoupling caps because it uses the NPIC6C596 for the functions of both the SIPO register and open-drain inverter of the THT version.
 
 
@@ -189,24 +189,24 @@ Inputs are ingested through shift registers, so it comes in as binary. Registers
 I propose the following bit layout:
 
 ```
-2L16B + Start -> 26 bits (round up to 32, 6 extra for onboard hw)
+2L16B + Start + Coin -> 28 bits (round up to 32, 4 extra for onboard hw)
 -P1----- -------- -P2----- --------
-UDLRSABC DEFGH000 UDLRSABC DEFGH000
+UDLRS123 45678C00 UDLRS123 45678C00
 ```
 
 I can stuff extra inputs into the remaining space, for DIP switches:
 ```
-2L16B + Start -> 26 bits (round up to 32, 6 extra for onboard hw)
+2L16B + Start + Coin -> 28 bits (round up to 32, 4 extra for onboard hw)
 -P1----- -------- -P2----- --------
-UDLRSABC DEFGHijk UDLRSABC DEFGHxyz
+UDLRS123 45678Cij UDLRS123 45678Ckl
 
-Where ijkxyz correspond to DIP switches 01-06
+Where ijkl correspond to DIP switches 01-06
 ```
 
 Ingest as binary means quick operations with bitmasks, eg:
 
 ```
-Mask out DIPs   |  output = (input & 11111111 11111000 11111111 11111000)
+Mask out DIPs   |  output = (input & 11111111 11111100 11111111 11111100)
 Remap P1 to P2  |  output = (input >> 16)
 Remap P2 to P1  |  output = (input << 16)
 ```
